@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/Arrow.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/arrow.png" type="Texture2D" id=2]
+[ext_resource path="res://Scenes/LogHitParticle.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 20, 450 )
+
+[node name="Arrow" type="CharacterBody2D" groups=["Arrow"]]
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.04, 45.5 )
+scale = Vector2( 0.14, 0.1 )
+shape = SubResource( 1 )
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2( -0.04, 45.5 )
+scale = Vector2( 0.14, 0.1 )
+texture = ExtResource( 2 )
+
+[node name="LogHitParticle" parent="." instance=ExtResource( 3 )]
+local_coords = false

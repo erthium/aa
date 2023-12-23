@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Sprites/background.png" type="Texture2D" id=1]
+
+[node name="Background" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color( 0.941176, 0.835294, 0.737255, 0.639216 )
+position = Vector2( 150, 250 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 1 )

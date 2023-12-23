@@ -1,0 +1,133 @@
+[gd_scene load_steps=17 format=3 uid="uid://2h0uv72ugg1t"]
+
+[ext_resource type="PackedScene" path="res://Scenes/Levels.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://Scenes/Log.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://Scenes/UpMenu.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://Scenes/BackgroundParticle.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://Scenes/Background.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://Scenes/Bow.tscn" id="6"]
+[ext_resource type="FontFile" uid="uid://c7h8btjcjx3sb" path="res://Other Assets/04B_30__.TTF" id="7"]
+[ext_resource type="Script" path="res://Scripts/GameManager.gd" id="8"]
+[ext_resource type="PackedScene" path="res://Scenes/FadeTransitionCanvas.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://Scenes/TapToContinue.tscn" id="10"]
+
+[sub_resource type="Animation" id="3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="4"]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="5"]
+resource_name = "normal"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3yh2b"]
+_data = {
+"RESET": SubResource("3"),
+"fade_out": SubResource("4"),
+"normal": SubResource("5")
+}
+
+[sub_resource type="FontFile" id="1"]
+fallbacks = Array[Font]([ExtResource("7")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="Theme" id="2"]
+default_font = SubResource("1")
+
+[node name="MainScene" type="Node2D"]
+
+[node name="GameManager" type="Node2D" parent="."]
+script = ExtResource("8")
+level = 1
+left_arrows = 4
+log_angular_speed = 1.5
+
+[node name="Background" parent="." instance=ExtResource("5")]
+
+[node name="GPUParticles2D" parent="." instance=ExtResource("4")]
+
+[node name="Bow" parent="." instance=ExtResource("6")]
+position = Vector2(150, 440)
+
+[node name="ArrowHolder" type="Node2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ArrowHolder"]
+libraries = {
+"": SubResource("AnimationLibrary_3yh2b")
+}
+
+[node name="Log" parent="." instance=ExtResource("2")]
+position = Vector2(150, 120)
+
+[node name="ArrowCounter" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 19.0
+offset_top = 457.0
+offset_right = 49.0
+offset_bottom = 487.0
+theme = SubResource("2")
+
+[node name="UpMenu" parent="." instance=ExtResource("3")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+
+[node name="GUI" parent="." instance=ExtResource("1")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+
+[node name="TapToContinue" parent="." instance=ExtResource("10")]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 250.0
+offset_bottom = 250.0
+
+[node name="FadeTransitionCanvas" parent="." instance=ExtResource("9")]
+visible = false
